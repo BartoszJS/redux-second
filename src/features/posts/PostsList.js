@@ -14,9 +14,9 @@ const PostsList = () => {
   ));
 
   return (
-    <section>
+    <section className=' max-w-6xl mx-auto'>
       <h2>Posts</h2>
-      {renderedPosts}
+      <div className='border border-black rounded'>{renderedPosts}</div>
     </section>
   );
 };
