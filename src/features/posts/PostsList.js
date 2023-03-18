@@ -1,15 +1,27 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectAllPosts } from "./postSlice";
+import { useEffect } from "react";
 
-import React from "react";
+import PostAuthor from "./PostAuthor";
+import TimeAgo from "./TimeAgo";
+import ReactionButtons from "./ReactionButtons";
 
 const PostsList = () => {
   const posts = useSelector(selectAllPosts);
 
-  const renderedPosts = posts.map((post) => (
-    <article>
+  const orderedPosts = posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const renderedPosts = orderedPosts.map((post) => (
+    <article className='mx-20 my-6 p-4 bg-white rounded'>
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
+      <p>
+        <PostAuthor userId={post.userId} />
+        <TimeAgo timestamp={post.date} />
+      </p>
+      <ReactionButtons post={post} />
     </article>
   ));
 
